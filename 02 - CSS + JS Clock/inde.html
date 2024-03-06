@@ -1,28 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSS + JS Clock</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clock</title>
+  <link rel="stylesheet" href="/02 - CSS + JS Clock/css/style.css">
 </head>
 <body>
+    <div class="page-header">
+      Souza Pedro
+    </div>
+    
     <div class="clock">
-        <div>
-          <div class="info date">2023/11/20</div>
-          <div class="info day">Monday</div>
-        </div>
-        <div class="dot"></div>
-        <div>
-          <div class="hour-hand"></div>
-          <div class="minute-hand"></div>
-          <div class="second-hand"></div>
-        </div>
-        <div>
-          <span class="h3">3</span>
-          <span class="h6">6</span>
-          <span class="h9">9</span>
-          <span class="h12">12</span>
-        </div>
-      </div>
+      <div class="hour"></div>
+      <div class="min"></div>
+      <div class="sec"></div>
+    </div>
+    <div class="switch-cont">
+      <button class="switch-btn"> Light </button>
+      <div class="hora switch-btn" id="hora"></div>
+      <div class="minuto switch-btn" id="minuto"></div>
+      <div class="secundos switch-btn" id="secundos"></div>
+    </div>
+    <script>
+      // Just noticed accessing localStorage is banned from codepen, so disabling saving theme to localStorage
+
+const deg = 6;
+const hour = document.querySelector(".hour");
+const min = document.querySelector(".min");
+const sec = document.querySelector(".sec");
+const secundos = document.querySelector("#secundos");
+const minutos = document.querySelector("#minuto");
+const hora = document.querySelector("#hora");
+
+const setClock = () => {
+  let day = new Date();
+  let hh = day.getHours();
+  let mm = day.getMinutes();
+  let ss = day.getSeconds();
+
+  hour.style.transform = `rotateZ(${hh * deg + mm / 2}deg)`;
+  min.style.transform = `rotateZ(${mm * deg + ss / 10}deg)`;
+  sec.style.transform = `rotateZ(${ss * deg}deg)`;
+  minutos.textContent = formatTimer(mm);
+  hora.textContent = formatTimer(hh);
+  secundos.textContent = formatTimer(ss);
+};
+
+function formatTimer(time){
+  return time < 10 ? `0${time}` : time;
+}
+
+function formatTimeToHHMMSS(hours, minutes, seconds) {
+  const formattedHours = formatTimer(hours);
+  const formattedMinutes = formatTimer(minutes);
+  const formattedSeconds = formatTimer(seconds);
+  return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+}
+
+// first time
+setClock();
+// Update every 1000 ms
+setInterval(setClock, 1000);
+
+const switchTheme = (evt) => {
+	const switchBtn = evt.target;
+	if (switchBtn.textContent.toLowerCase() === "light") {
+		switchBtn.textContent = "dark";
+		// localStorage.setItem("theme", "dark");
+		document.documentElement.setAttribute("data-theme", "dark");
+	} else {
+		switchBtn.textContent = "light";
+		// localStorage.setItem("theme", "light"); //add this
+		document.documentElement.setAttribute("data-theme", "light");
+	}
+};
+
+const switchModeBtn = document.querySelector(".switch-btn");
+switchModeBtn.addEventListener("click", switchTheme, false);
+
+let currentTheme = "dark";
+// currentTheme = localStorage.getItem("theme")
+// 	? localStorage.getItem("theme")
+// 	: null;
+
+if (currentTheme) {
+	document.documentElement.setAttribute("data-theme", currentTheme);
+	switchModeBtn.textContent = currentTheme;
+}
+
+    </script>
 </body>
 </html>
