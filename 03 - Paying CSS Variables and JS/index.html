@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playing With CSS Variables and Js</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="https://fav.farm/🔥">
+</head>
+<body>
+    
+        <h2> Atualização CSS Variaveis com <span class="h1">JS</span></h2>
+   
+    <div class="controls">
+        <label for="spacing">Spacing: </label>
+        <input type="range" id="spacing" name="spacing" min="10" max="250" value="10" data-sizing="px" >
+        
+        <label for="spacing">Blur: </label>
+        <input type="range" id="blur" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+        <label for="spacing">Base </label>
+        <input type="color" id="base" name="base" value="#ffa559">
+    </div>
+
+    <img src="https://unsplash.it/800/500?image=80" alt="souza">
+
+    <script>
+        const inputs = document.querySelectorAll('.controls input');
+        
+        function HandleUptade(){
+            //Atualização de dos efeitos na imagem.
+            const suffix = this.dataset.sizing || '';
+            document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+            console.log(suffix);
+        }
+
+        inputs.forEach(input => input.addEventListener('change', HandleUptade));
+
+    </script>
+</body>
+</html>
