@@ -56,18 +56,18 @@ body{
 .timers{
     display: flex;
     font: 55px bold;
-    color: #333;
+    color: var(--main-text-color);
 	transition: all ease 0.2s;
 }
 
 .separator{
 	padding: 0 8px;
-	color: dimgray;
+	color: var(--main-text-color);
 }
 
 .time{
 	font-family: Franklin Gothic Medium,Franklin Gothic,ITC Franklin Gothic; 
-	color: gray;
+	color: var(--main-text-color);
 	padding: 5px 10px;
 	border-radius: 5px;
     box-shadow: 0 -15px 15px rgba(255, 255, 255, 0.05),
